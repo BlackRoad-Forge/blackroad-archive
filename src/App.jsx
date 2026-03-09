@@ -22,6 +22,7 @@ import LucidiaTerminal from './pages/LucidiaTerminal';
 import RoadChainExplorer from './pages/RoadChainExplorer';
 import AboutPage from './pages/about-page';
 import LeadershipPage from './pages/leadership-page';
+import BlackRoadPricing from './pages/BlackRoadPricing';
 
 const inter = "'Inter', sans-serif";
 const mono = "'JetBrains Mono', monospace";
@@ -47,6 +48,8 @@ const NAV_ITEMS = [
   { path: '/animations', label: 'Animations' },
   { path: '/command', label: 'Command' },
   { path: '/chat2', label: 'Chat v2' },
+  { path: '/pricing', label: 'Pricing' },
+  { path: '/billing', label: 'Billing' },
 ];
 
 function AppNav() {
@@ -118,6 +121,8 @@ export default function App() {
         <Route path="/brand-kit" element={<BrandTemplate />} />
         <Route path="/animations" element={<BlackRoadAnimations />} />
         <Route path="/command" element={<BlackRoadCommand />} />
+        <Route path="/pricing" element={<BlackRoadPricing />} />
+        <Route path="/billing" element={<BlackRoadPricing />} />
       </Routes>
     </BrowserRouter>
   );

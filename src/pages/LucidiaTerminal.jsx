@@ -386,7 +386,7 @@ export default function LucidiaTerminal() {
       <div style={{ width: "100vw", height: "100vh", background: "#0d0d0d", display: "flex", flexDirection: "column", overflow: "hidden", fontFamily: mono }}>
 
         {/* ── macOS-style title bar ─────────────────────────────── */}
-      <div style={{ background: "#0a0a0a", minHeight: 2, background: GRAD, backgroundSize: "200% 100%", animation: "gradShift 4s linear infinite", flexShrink: 0 }} />
+      <div style={{ minHeight: 2, background: GRAD, backgroundSize: "200% 100%", animation: "gradShift 4s linear infinite", flexShrink: 0 }} />
         <div style={{ height: 38, background: "#0d0d0d", borderBottom: "1px solid #1a1a1a", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 14px", flexShrink: 0, userSelect: "none" }}>
           {/* Traffic lights */}
           <div style={{ display: "flex", gap: 7, alignItems: "center" }}>

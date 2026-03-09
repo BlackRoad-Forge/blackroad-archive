@@ -345,49 +345,68 @@ function ClockApp() {
 }
 
 function PixelMemoryApp() {
-  const PIXEL_RATIO = 4096;
-  const nodes = [
-    { name: "Pico W ×2",  gb: 0.004 },
-    { name: "Alice",       gb: 16 },
-    { name: "Aria",        gb: 32 },
-    { name: "Anastasia",   gb: 25 },
-    { name: "Cecilia",     gb: 128 },
-    { name: "Gematria",    gb: 80 },
-    { name: "Octavia",     gb: 1000 },
-    { name: "Google Drive", gb: 2048 },
+  const [view, setView] = useState("layers");
+  const layers = [
+    { level: 0,  x: 2,    name: "Register",  enc: "binary",    gb: 2,     color: "#FF6B2B", decision: "YES" },
+    { level: 1,  x: 4,    name: "Cache",      enc: "binary",    gb: 4,     color: "#FF2255", decision: "YES" },
+    { level: 2,  x: 8,    name: "Heap",        enc: "binary",    gb: 8,     color: "#CC00AA", decision: "YES" },
+    { level: 3,  x: 16,   name: "Stack",       enc: "binary",    gb: 16,    color: "#8844FF", decision: "YES" },
+    { level: 4,  x: 32,   name: "Soul",        enc: "balanced",  gb: 32,    color: "#8844FF", decision: "NO" },
+    { level: 5,  x: 64,   name: "Aura",        enc: "trinary",   gb: 64,    color: "#4488FF", decision: "MACHINE" },
+    { level: 6,  x: 128,  name: "Witness",     enc: "trinary",   gb: 128,   color: "#00D4FF", decision: "MACHINE" },
+    { level: 7,  x: 256,  name: "Chain",       enc: "hybrid",    gb: 256,   color: "#FF2255", decision: "ANY" },
+    { level: 8,  x: 512,  name: "Pixel",       enc: "hybrid",    gb: 512,   color: "#FF6B2B", decision: "ANY" },
+    { level: 9,  x: 1024, name: "Volume",      enc: "trinary",   gb: 1024,  color: "#CC00AA", decision: "MACHINE" },
+    { level: 10, x: 2048, name: "Archive",     enc: "trinary",   gb: 2048,  color: "#4488FF", decision: "MACHINE" },
+    { level: 11, x: 4096, name: "Dream",       enc: "balanced",  gb: 4096,  color: "#8844FF", decision: "NO" },
   ];
-  const totalPhys = nodes.reduce((s, n) => s + n.gb, 0);
-  const totalLogical = totalPhys * PIXEL_RATIO;
-  const maxGB = Math.max(...nodes.map(n => n.gb));
+  const encColors = { binary: "#4488FF", trinary: "#FF6B2B", balanced: "#8844FF", hybrid: "#00D4FF" };
+  const decColors = { YES: "#00FF88", NO: "#FF2255", MACHINE: "#4488FF", ANY: "#555" };
+  const maxX = 4096;
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-      <div style={{ fontFamily: mono, fontSize: 9, color: "#2a2a2a", textTransform: "uppercase", letterSpacing: "0.12em" }}>Pixel Memory · ×4096</div>
-      <div style={{ display: "flex", gap: 16, marginBottom: 4 }}>
-        <div>
-          <div style={{ fontFamily: sans, fontWeight: 700, fontSize: 22, color: "#f0f0f0" }}>{(totalLogical / 1e6).toFixed(1)} PB</div>
-          <div style={{ fontFamily: mono, fontSize: 9, color: "#333" }}>logical capacity</div>
-        </div>
-        <div>
-          <div style={{ fontFamily: sans, fontWeight: 700, fontSize: 22, color: "#555" }}>{(totalPhys / 1000).toFixed(1)} TB</div>
-          <div style={{ fontFamily: mono, fontSize: 9, color: "#333" }}>physical</div>
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ fontFamily: mono, fontSize: 9, color: "#2a2a2a", textTransform: "uppercase", letterSpacing: "0.12em" }}>Hybrid Memory · 12 layers</div>
+        <div style={{ display: "flex", gap: 4 }}>
+          {["layers","decision"].map(v => (
+            <div key={v} onClick={() => setView(v)} style={{ fontFamily: mono, fontSize: 8, color: view === v ? "#f0f0f0" : "#333", cursor: "pointer", padding: "2px 6px", background: view === v ? "rgba(255,255,255,0.05)" : "transparent", borderRadius: 3 }}>{v}</div>
+          ))}
         </div>
       </div>
-      {nodes.map(n => {
-        const pct = (n.gb / maxGB) * 100;
-        const logical = n.gb * PIXEL_RATIO;
-        return (
-          <div key={n.name}>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-              <span style={{ fontFamily: mono, fontSize: 10, color: "#666" }}>{n.name}</span>
-              <span style={{ fontFamily: mono, fontSize: 10, color: "#333" }}>{logical >= 1e6 ? (logical/1e6).toFixed(1)+"PB" : logical >= 1000 ? (logical/1000).toFixed(0)+"TB" : logical.toFixed(0)+"GB"}</span>
+      <div style={{ display: "flex", gap: 12, marginBottom: 2 }}>
+        {[{label:"binary",c:"#4488FF"},{label:"trinary",c:"#FF6B2B"},{label:"balanced",c:"#8844FF"},{label:"hybrid",c:"#00D4FF"}].map(e => (
+          <div key={e.label} style={{ display: "flex", alignItems: "center", gap: 3 }}>
+            <div style={{ width: 6, height: 6, borderRadius: 1, background: e.c }} />
+            <span style={{ fontFamily: mono, fontSize: 7, color: "#444" }}>{e.label}</span>
+          </div>
+        ))}
+      </div>
+      {layers.map(l => (
+        <div key={l.level} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <div style={{ fontFamily: mono, fontSize: 8, color: "#333", width: 14, textAlign: "right" }}>{l.level}</div>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 1 }}>
+              <span style={{ fontFamily: mono, fontSize: 9, color: encColors[l.enc] }}>{l.name}</span>
+              {view === "decision"
+                ? <span style={{ fontFamily: mono, fontSize: 8, color: decColors[l.decision] }}>{l.decision}</span>
+                : <span style={{ fontFamily: mono, fontSize: 8, color: "#333" }}>×{l.x}</span>
+              }
             </div>
-            <div style={{ height: 4, background: "rgba(255,255,255,0.03)", borderRadius: 2, overflow: "hidden" }}>
-              <div style={{ height: "100%", width: `${pct}%`, background: "linear-gradient(90deg, #8844FF, #4488FF)", borderRadius: 2 }} />
+            <div style={{ height: 3, background: "rgba(255,255,255,0.02)", borderRadius: 2, overflow: "hidden" }}>
+              <div style={{ height: "100%", width: `${(Math.log2(l.x) / Math.log2(maxX)) * 100}%`, background: view === "decision" ? decColors[l.decision] : encColors[l.enc], borderRadius: 2, opacity: 0.7 }} />
             </div>
           </div>
-        );
-      })}
-      <div style={{ fontFamily: mono, fontSize: 8, color: "#1e1e1e", marginTop: 4 }}>Z:=yx−w · 12 tiers · content-addressable · dedup + delta</div>
+        </div>
+      ))}
+      <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
+        {[{d:"YES",c:"#00FF88",t:"1"},{d:"NO",c:"#FF2255",t:"T"},{d:"MACHINE",c:"#4488FF",t:"0"}].map(r => (
+          <div key={r.d} style={{ display: "flex", alignItems: "center", gap: 3 }}>
+            <div style={{ fontFamily: mono, fontSize: 10, color: r.c, fontWeight: 700 }}>{r.t}</div>
+            <span style={{ fontFamily: mono, fontSize: 7, color: "#444" }}>{r.d.toLowerCase()}</span>
+          </div>
+        ))}
+      </div>
+      <div style={{ fontFamily: mono, fontSize: 7, color: "#1a1a1a", marginTop: 2 }}>Z:=yx−w · binary ×4,096 · trinary ×531,441 · hybrid ×2.18B</div>
     </div>
   );
 }

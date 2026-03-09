@@ -372,7 +372,7 @@ export default function AboutPage() {
         button:hover { opacity: 0.88; }
       `}</style>
 
-      <div style={{ background: "#0a0a0a", minHeight: "100vh", width: "100%", maxWidth: "100vw", overflowX: "hidden", fontFamily: "'Inter', sans-serif", color: "#f5f5f5" }}>
+      <div style={{ background: "#000", minHeight: "100vh", width: "100%", maxWidth: "100vw", overflowX: "hidden", fontFamily: "'Inter', sans-serif", color: "#f5f5f5" }}>
         <GradientBar />
         <Nav />
         <FounderSection />

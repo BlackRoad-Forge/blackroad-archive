@@ -391,7 +391,7 @@ export default function BrandTemplate() {
   }, []);
 
   return (
-    <div style={{ background: "#0a0a1a", minHeight: "100vh", color: "#e8e8f0", fontFamily: "'Inter', sans-serif", overflowX: "hidden" }}>
+    <div style={{ background: "#000", minHeight: "100vh", color: "#e8e8f0", fontFamily: "'Inter', sans-serif", overflowX: "hidden" }}>
       {/* Header */}
       <div style={{ borderBottom: "1px solid rgba(100,140,255,0.08)" }}>
         <GradientBar height={3} glow />

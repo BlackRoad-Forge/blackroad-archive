@@ -404,13 +404,13 @@ function Pricing() {
     },
     {
       name: "Sovereign",
-      price: "$499",
+      price: "$299",
       cadence: "/ month",
       color: "#8844FF",
       featured: true,
-      items: ["Everything in Operator", "Full agent fleet (5 agents)", "Aura intelligence layer", "Dedicated infra + SLA", "Priority support"],
+      items: ["Everything in Operator", "Full agent fleet (8 agents)", "Hybrid Memory (×2.18B)", "Dedicated infra + SLA", "Priority support"],
       cta: "Get Sovereign",
-      action: () => window.open("https://buy.stripe.com/test_5kQbIUd3y8xT8SD3s04Vy00", "_blank"),
+      action: () => window.location.href = "/pricing",
     },
     {
       name: "Enterprise",
@@ -420,7 +420,7 @@ function Pricing() {
       items: ["Fully custom deployment", "White-label OS", "On-prem or air-gapped", "Dedicated success team"],
       cta: "Talk to Us",
       outline: true,
-      action: () => window.location.href = "mailto:alexa@blackroad.io?subject=Enterprise%20Inquiry",
+      action: () => window.location.href = "/pricing",
     },
   ];
 
